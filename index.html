@@ -53,7 +53,7 @@
       font-variant-numeric: tabular-nums;
     }
 
-    /* Ambient Background Layer: Ultra-Soft Radial Lighting */
+    /* Ambient Background Layer: Google/Gemini Style Dynamic Mesh Glow in LG Colors */
     .ambient-lighting {
       position: fixed;
       inset: 0;
@@ -64,78 +64,131 @@
 
     .ambient-orb {
       position: absolute;
-      border-radius: 50%;
-      filter: blur(90px);
-      opacity: 0.6;
-      mix-blend-mode: normal;
+      border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+      filter: blur(85px);
+      opacity: 0.52;
+      will-change: transform, border-radius;
     }
 
+    /* Primary: LG Active Red Fluid Aurora (Top Left & Center) */
     .orb-primary {
-      width: 380px;
-      height: 380px;
+      width: 420px;
+      height: 420px;
       top: -10%;
-      left: 10%;
-      background: radial-gradient(circle, rgba(237, 28, 36, 0.18) 0%, rgba(165, 0, 52, 0.05) 50%, transparent 75%);
-      animation: ambientFloat1 8s ease-in-out infinite alternate;
+      left: -5%;
+      background: radial-gradient(circle at 35% 35%, rgba(237, 28, 36, 0.28) 0%, rgba(192, 0, 55, 0.12) 40%, transparent 75%);
+      animation: googleMeshFloat1 14s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
     }
 
+    /* Secondary: Warm Amber Gold Energy (Right & Middle) */
     .orb-secondary {
-      width: 320px;
-      height: 320px;
-      top: 45%;
-      right: 5%;
-      background: radial-gradient(circle, rgba(245, 158, 11, 0.12) 0%, rgba(237, 28, 36, 0.04) 50%, transparent 75%);
-      animation: ambientFloat2 9s ease-in-out infinite alternate;
+      width: 360px;
+      height: 360px;
+      top: 36%;
+      right: -8%;
+      background: radial-gradient(circle at 60% 40%, rgba(251, 146, 60, 0.20) 0%, rgba(237, 28, 36, 0.08) 45%, transparent 75%);
+      animation: googleMeshFloat2 16s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
     }
 
+    /* Tertiary: Deep Crimson Wine Base (Bottom Left) */
     .orb-tertiary {
-      width: 340px;
-      height: 340px;
-      bottom: -5%;
-      left: 15%;
-      background: radial-gradient(circle, rgba(237, 28, 36, 0.14) 0%, rgba(165, 0, 52, 0.03) 50%, transparent 75%);
-      animation: ambientFloat3 10s ease-in-out infinite alternate;
+      width: 400px;
+      height: 400px;
+      bottom: -8%;
+      left: 5%;
+      background: radial-gradient(circle at 40% 60%, rgba(192, 0, 55, 0.22) 0%, rgba(237, 28, 36, 0.08) 45%, transparent 75%);
+      animation: googleMeshFloat3 15s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+    }
+
+    /* Quaternary: Coral Flare Highlight (Center Accent) */
+    .orb-quaternary {
+      width: 300px;
+      height: 300px;
+      top: 18%;
+      right: 15%;
+      background: radial-gradient(circle at 50% 50%, rgba(244, 63, 94, 0.18) 0%, rgba(251, 113, 133, 0.06) 40%, transparent 75%);
+      animation: googleMeshFloat4 12s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+    }
+
+    .dark .ambient-orb {
+      opacity: 0.65;
+      filter: blur(95px);
     }
 
     .dark .orb-primary {
-      background: radial-gradient(circle, rgba(237, 28, 36, 0.22) 0%, rgba(165, 0, 52, 0.08) 55%, transparent 75%);
+      background: radial-gradient(circle at 35% 35%, rgba(237, 28, 36, 0.32) 0%, rgba(192, 0, 55, 0.15) 40%, transparent 80%);
     }
 
     .dark .orb-secondary {
-      background: radial-gradient(circle, rgba(245, 158, 11, 0.14) 0%, rgba(237, 28, 36, 0.06) 55%, transparent 75%);
+      background: radial-gradient(circle at 60% 40%, rgba(251, 146, 60, 0.22) 0%, rgba(237, 28, 36, 0.10) 45%, transparent 80%);
     }
 
     .dark .orb-tertiary {
-      background: radial-gradient(circle, rgba(237, 28, 36, 0.18) 0%, rgba(165, 0, 52, 0.06) 55%, transparent 75%);
+      background: radial-gradient(circle at 40% 60%, rgba(192, 0, 55, 0.26) 0%, rgba(237, 28, 36, 0.10) 45%, transparent 75%);
     }
 
-    @keyframes ambientFloat1 {
-      0% {
-        transform: translate(0, 0) scale(1);
-      }
+    .dark .orb-quaternary {
+      background: radial-gradient(circle at 50% 50%, rgba(244, 63, 94, 0.20) 0%, rgba(251, 113, 133, 0.06) 40%, transparent 75%);
+    }
 
+    /* Google Style Organic Fluid Keyframe Animations */
+    @keyframes googleMeshFloat1 {
+      0% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+        border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+      }
+      50% {
+        transform: translate(60px, 45px) rotate(45deg) scale(1.12);
+        border-radius: 60% 40% 30% 70% / 50% 60% 40% 60%;
+      }
       100% {
-        transform: translate(50px, 35px) scale(1.06);
+        transform: translate(25px, 80px) rotate(90deg) scale(0.96);
+        border-radius: 35% 65% 55% 45% / 60% 35% 65% 40%;
       }
     }
 
-    @keyframes ambientFloat2 {
+    @keyframes googleMeshFloat2 {
       0% {
-        transform: translate(0, 0) scale(1);
+        transform: translate(0, 0) rotate(0deg) scale(1);
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
       }
-
+      50% {
+        transform: translate(-50px, 35px) rotate(-40deg) scale(1.15);
+        border-radius: 40% 60% 65% 35% / 40% 65% 35% 60%;
+      }
       100% {
-        transform: translate(-45px, 25px) scale(1.05);
+        transform: translate(-30px, -45px) rotate(-80deg) scale(0.92);
+        border-radius: 70% 30% 50% 50% / 30% 70% 40% 60%;
       }
     }
 
-    @keyframes ambientFloat3 {
+    @keyframes googleMeshFloat3 {
       0% {
-        transform: translate(0, 0) scale(1);
+        transform: translate(0, 0) rotate(0deg) scale(1);
+        border-radius: 50% 50% 40% 60% / 40% 60% 50% 50%;
       }
-
+      50% {
+        transform: translate(45px, -50px) rotate(35deg) scale(1.1);
+        border-radius: 35% 65% 60% 40% / 60% 40% 60% 40%;
+      }
       100% {
-        transform: translate(40px, -30px) scale(1.08);
+        transform: translate(75px, -20px) rotate(70deg) scale(1.04);
+        border-radius: 65% 35% 45% 55% / 45% 55% 35% 65%;
+      }
+    }
+
+    @keyframes googleMeshFloat4 {
+      0% {
+        transform: translate(0, 0) scale(0.95);
+        opacity: 0.5;
+      }
+      50% {
+        transform: translate(-35px, -30px) scale(1.18);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translate(20px, 30px) scale(1.02);
+        opacity: 0.6;
       }
     }
 
@@ -225,9 +278,12 @@
     }
 
     @keyframes dotPulse {
-      0%, 100% {
+
+      0%,
+      100% {
         transform: scale(1);
       }
+
       50% {
         transform: scale(1.12);
       }
@@ -263,11 +319,12 @@
 <body
   class="min-h-screen bg-[#fafafa] dark:bg-[#09090b] text-zinc-900 dark:text-zinc-100 flex flex-col items-center antialiased selection:bg-lgRed selection:text-white relative overflow-x-hidden font-sans">
 
-  <!-- Ambient Backdrop Lighting -->
+  <!-- Ambient Backdrop Lighting (Google Gemini Fluid Mesh in LG Red & Amber) -->
   <div class="ambient-lighting" aria-hidden="true">
     <div class="ambient-orb orb-primary"></div>
     <div class="ambient-orb orb-secondary"></div>
     <div class="ambient-orb orb-tertiary"></div>
+    <div class="ambient-orb orb-quaternary"></div>
   </div>
 
   <!-- Mobile Screen Container (420px precision constrained) -->
@@ -287,9 +344,7 @@
             d="M74 34.5 C68.5 24 59.5 19 49.5 19 C32 19 19 32.5 19 50 C19 67.5 32 81 49.5 81 C64.5 81 76.5 70.5 80 57.5 H62"
             stroke="white" stroke-width="6.2" stroke-linecap="round" stroke-linejoin="round" />
           <!-- Inner 'L' Stroke (Nose & Mouth structure) -->
-          <path
-            d="M50 34 V56.5 H64"
-            stroke="white" stroke-width="6.2" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M50 34 V56.5 H64" stroke="white" stroke-width="6.2" stroke-linecap="round" stroke-linejoin="round" />
           <!-- Signature Eye Dot -->
           <circle cx="36" cy="39" r="4.8" fill="white" />
         </svg>
@@ -349,7 +404,8 @@
       </h1>
 
       <!-- Slogan -->
-      <p class="text-xs font-normal text-zinc-500 dark:text-zinc-400 tracking-tight max-w-[300px] mx-auto mt-2 leading-relaxed">
+      <p
+        class="text-xs font-normal text-zinc-500 dark:text-zinc-400 tracking-tight max-w-[300px] mx-auto mt-2 leading-relaxed">
         <span>A New Milestone in Laundry Innovation</span><br>
         <span class="text-zinc-400 dark:text-zinc-500 font-medium">Clarksville, Tennessee</span>
       </p>

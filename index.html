@@ -46,25 +46,124 @@
   </script>
 
   <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
     /* Base Body Styling */
     body {
       -webkit-tap-highlight-color: transparent;
       transition: background-color 0.4s ease, color 0.4s ease;
     }
 
-    /* Ambient Background Gradients */
-    .dark .bg-mesh {
-      background: radial-gradient(circle at 50% 0%, rgba(165, 0, 52, 0.28) 0%, transparent 60%),
-        radial-gradient(circle at 100% 40%, rgba(223, 177, 91, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 0% 80%, rgba(165, 0, 52, 0.12) 0%, transparent 50%),
-        #0b0c10;
+    /* Ambient Glowing Orbs: Top / Middle / Bottom Tri-Zone */
+    .ambient-container {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
     }
 
-    .bg-mesh {
-      background: radial-gradient(circle at 50% 0%, rgba(165, 0, 52, 0.08) 0%, transparent 60%),
-        radial-gradient(circle at 100% 40%, rgba(223, 177, 91, 0.06) 0%, transparent 50%),
-        radial-gradient(circle at 0% 80%, rgba(165, 0, 52, 0.05) 0%, transparent 50%),
-        #f8fafc;
+    /* 1. Top Zone (LG Red) - Top-Left to Top-Right Diagonal Drift */
+    .orb-top {
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      filter: blur(65px);
+      top: -40px;
+      left: 5%;
+      animation: driftTopDiagonal 1.7s ease-in-out infinite alternate;
+    }
+
+    /* 2. Middle Zone (Champagne Gold) - Middle Right-to-Left Diagonal Drift */
+    .orb-mid {
+      position: absolute;
+      width: 290px;
+      height: 290px;
+      border-radius: 50%;
+      filter: blur(60px);
+      top: 40%;
+      right: 5%;
+      animation: driftMidDiagonal 2.0s ease-in-out infinite alternate;
+    }
+
+    /* 3. Bottom Zone (Warm Rose Red) - Bottom Left-to-Right Diagonal Drift */
+    .orb-bottom {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      filter: blur(65px);
+      bottom: -30px;
+      left: 10%;
+      animation: driftBottomDiagonal 2.3s ease-in-out infinite alternate;
+    }
+
+    /* Light Mode: Vivid & clear yet crisp */
+    .orb-top {
+      background: radial-gradient(circle, rgba(235, 0, 70, 0.30) 0%, rgba(165, 0, 52, 0.15) 55%, transparent 75%);
+    }
+
+    .orb-mid {
+      background: radial-gradient(circle, rgba(245, 170, 25, 0.32) 0%, rgba(215, 150, 20, 0.14) 55%, transparent 75%);
+    }
+
+    .orb-bottom {
+      background: radial-gradient(circle, rgba(235, 25, 80, 0.28) 0%, rgba(165, 0, 52, 0.12) 55%, transparent 75%);
+    }
+
+    /* Dark Mode: Soft & subtle elegant ambient glow */
+    .dark .orb-top {
+      background: radial-gradient(circle, rgba(235, 0, 70, 0.32) 0%, rgba(165, 0, 52, 0.14) 55%, transparent 75%);
+    }
+
+    .dark .orb-mid {
+      background: radial-gradient(circle, rgba(245, 175, 35, 0.24) 0%, rgba(215, 150, 20, 0.10) 55%, transparent 75%);
+    }
+
+    .dark .orb-bottom {
+      background: radial-gradient(circle, rgba(235, 25, 80, 0.26) 0%, rgba(165, 0, 52, 0.12) 55%, transparent 75%);
+    }
+
+    /* Diagonal Left-Right Motion Paths */
+    @keyframes driftTopDiagonal {
+      0% {
+        transform: translate(0px, 0px) scale(1);
+      }
+
+      100% {
+        transform: translate(85px, 50px) scale(1.08);
+      }
+    }
+
+    @keyframes driftMidDiagonal {
+      0% {
+        transform: translate(0px, 0px) scale(1);
+      }
+
+      100% {
+        transform: translate(-80px, 45px) scale(1.06);
+      }
+    }
+
+    @keyframes driftBottomDiagonal {
+      0% {
+        transform: translate(0px, 0px) scale(1);
+      }
+
+      100% {
+        transform: translate(75px, -45px) scale(1.08);
+      }
+    }
+
+    .dark body {
+      background-color: #0b0c10;
+    }
+
+    body {
+      background-color: #f8fafc;
     }
 
     /* Keyframe Animations */
@@ -164,10 +263,17 @@
 </head>
 
 <body
-  class="min-h-screen bg-mesh text-slate-800 dark:text-slate-100 flex flex-col items-center antialiased selection:bg-lgRed selection:text-white">
+  class="min-h-screen text-slate-800 dark:text-slate-100 flex flex-col items-center antialiased selection:bg-lgRed selection:text-white relative overflow-x-hidden">
+
+  <!-- Fixed Ambient Glowing Orbs (Top / Middle / Bottom Tri-Zone) -->
+  <div class="ambient-container" aria-hidden="true">
+    <div class="orb-top"></div>
+    <div class="orb-mid"></div>
+    <div class="orb-bottom"></div>
+  </div>
 
   <!-- Mobile Wrapper (Strict 430px max width for optimal app-like mobile experience) -->
-  <main class="w-full max-w-[430px] min-h-screen flex flex-col relative pb-28">
+  <main class="w-full max-w-[430px] min-h-screen flex flex-col relative z-10 pb-28">
 
     <!-- TOP BAR: THEME TOGGLE & BRAND BADGE -->
     <div class="pt-6 px-6 flex items-center justify-between z-20">
@@ -245,7 +351,7 @@
         <span class="w-1.5 h-3.5 bg-lgRed rounded-full inline-block"></span>
         Event Program Timeline
       </h2>
-      <span id="liveStatusBadge" class="text-[11px] text-slate-500 font-mono tracking-tight">OCT 2026</span>
+      <span id="liveStatusBadge" class="text-[11px] text-slate-500 font-mono tracking-tight">Nov 2026</span>
     </section>
 
     <!-- TIMELINE CONTAINER -->
@@ -552,6 +658,14 @@
       </div>
     </section>
 
+    <!-- Floating Scroll-To-Top Button (Discreet, appears on scroll) -->
+    <button id="scrollToTopBtn" aria-label="Scroll to top"
+      class="fixed bottom-6 right-5 z-40 w-10 h-10 rounded-full bg-white/90 dark:bg-slate-800/90 text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-white/10 shadow-lg backdrop-blur-md flex items-center justify-center opacity-0 pointer-events-none translate-y-3 transition-all duration-300 hover:scale-105 active:scale-95 hover:bg-lgRed hover:text-white dark:hover:bg-lgRed dark:hover:text-white">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M5 15l7-7 7 7"></path>
+      </svg>
+    </button>
+
   </main>
 
   <!-- Scripts: Theme Switcher & Real-time Clarksville Time Sync -->
@@ -575,6 +689,25 @@
         htmlElement.classList.add('dark');
         localStorage.setItem('theme', 'dark');
       }
+    });
+
+    // Scroll to Top Logic
+    const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 250) {
+        scrollToTopBtn.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-3');
+        scrollToTopBtn.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+      } else {
+        scrollToTopBtn.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+        scrollToTopBtn.classList.add('opacity-0', 'pointer-events-none', 'translate-y-3');
+      }
+    }, { passive: true });
+
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
     });
 
     // Real-time Clarksville, TN (Central Time: America/Chicago) Timeline Sync

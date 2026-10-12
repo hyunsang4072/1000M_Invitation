@@ -216,19 +216,32 @@
       animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
-    /* Celebration Sparkle Micro-Interactions */
+    /* Celebration Sparkle Micro-Interactions (Extended elegant glimmer & twinkle) */
     @keyframes sparklePop {
       0% {
         opacity: 0;
         transform: scale(0) rotate(0deg);
+        filter: drop-shadow(0 0 2px rgba(212, 175, 55, 0.4));
+      }
+      20% {
+        opacity: 1;
+        transform: scale(1.25) rotate(60deg);
+        filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.9));
       }
       50% {
+        opacity: 0.75;
+        transform: scale(0.95) rotate(120deg);
+        filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.6));
+      }
+      75% {
         opacity: 1;
-        transform: scale(1.2) rotate(90deg);
+        transform: scale(1.15) rotate(180deg);
+        filter: drop-shadow(0 0 7px rgba(212, 175, 55, 0.8));
       }
       100% {
         opacity: 0;
-        transform: scale(0.3) rotate(180deg);
+        transform: scale(0.2) rotate(240deg);
+        filter: drop-shadow(0 0 0px transparent);
       }
     }
 
@@ -236,7 +249,7 @@
       position: absolute;
       pointer-events: none;
       opacity: 0;
-      animation: sparklePop 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation: sparklePop 2.2s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
     }
 
     .timeline-item {
@@ -1157,7 +1170,7 @@
           titleContainer.appendChild(sparkle);
           setTimeout(() => {
             if (sparkle.parentNode) sparkle.parentNode.removeChild(sparkle);
-          }, 1400);
+          }, 2800);
         });
       }
 

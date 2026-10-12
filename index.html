@@ -13,6 +13,9 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
     rel="stylesheet">
 
+  <!-- Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
   <!-- Tailwind CSS CDN with darkMode: 'class' -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -217,6 +220,29 @@
       animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
+    /* Celebration Sparkle Micro-Interactions */
+    @keyframes sparklePop {
+      0% {
+        opacity: 0;
+        transform: scale(0) rotate(0deg);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.2) rotate(90deg);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(0.3) rotate(180deg);
+      }
+    }
+
+    .sparkle-particle {
+      position: absolute;
+      pointer-events: none;
+      opacity: 0;
+      animation: sparklePop 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
     .timeline-item {
       opacity: 0;
       animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -361,14 +387,14 @@
         </span>
       </div>
 
-      <!-- Right Controls: Live Time & Theme Switcher -->
+      <!-- Right Controls: D-Day Countdown & Theme Switcher -->
       <div class="flex items-center gap-1.5">
-        <!-- Live Clock Pill -->
+        <!-- D-Day Countdown Pill -->
         <div
           class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-black/5 dark:border-white/10 bg-black/[0.03] dark:bg-white/[0.04] backdrop-blur-md shadow-sm">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span id="clarksvilleClock"
-            class="font-mono text-[11px] font-medium text-zinc-600 dark:text-zinc-300 num-tabular">--:--:-- --</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-lgRed animate-pulse"></span>
+          <span id="ceremonyDDay"
+            class="font-mono text-[11px] font-semibold text-zinc-800 dark:text-zinc-200 num-tabular tracking-wide">D-DAY</span>
         </div>
 
         <!-- Theme Toggle Button -->
@@ -401,7 +427,7 @@
       </div>
 
       <!-- Main Scale Title -->
-      <h1 class="tracking-tight leading-none mb-3">
+      <h1 id="heroTitleContainer" class="tracking-tight leading-none mb-3 relative inline-block">
         <span
           class="block text-4xl sm:text-[42px] font-extrabold tracking-[-0.04em] bg-clip-text text-transparent bg-gradient-to-b from-zinc-900 via-zinc-800 to-zinc-600 dark:from-white dark:via-zinc-100 dark:to-zinc-400">
           10 MILLION
@@ -421,8 +447,8 @@
       <!-- Date & Venue Pill Meta -->
       <div
         class="mt-4 inline-flex items-center divide-x divide-zinc-200 dark:divide-zinc-800 text-[11px] text-zinc-500 dark:text-zinc-400 font-medium">
-        <span class="px-2.5">November 2026</span>
-        <span class="px-2.5">Central Time (CDT)</span>
+        <span class="px-2.5">Tuesday, Nov 10, 2026</span>
+        <span class="px-2.5">12:00 PM CST</span>
       </div>
     </section>
 
@@ -957,21 +983,54 @@
       return hours * 60 + minutes;
     }
 
+    // Target Event Date: Tuesday, November 10, 2026 12:00:00 CST (America/Chicago, UTC-6)
+    const CEREMONY_DATE = new Date('2026-11-10T12:00:00-06:00');
+
     function updateTimelineSchedule() {
       const now = new Date();
-      const options = {
-        timeZone: 'America/Chicago',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: true
-      };
 
-      const clarksvilleTimeStr = new Intl.DateTimeFormat('en-US', options).format(now);
-      const clockElement = document.getElementById('clarksvilleClock');
-      if (clockElement) {
-        clockElement.textContent = clarksvilleTimeStr;
+      // D-Day Calculation relative to Clarksville (America/Chicago) calendar date
+      const dDayElement = document.getElementById('ceremonyDDay');
+      if (dDayElement) {
+        const getLocalDateParts = (d) => {
+          const parts = new Intl.DateTimeFormat('en-US', {
+            timeZone: 'America/Chicago',
+            year: 'numeric',
+            month: 'numeric',
+            day: 'numeric'
+          }).formatToParts(d);
+          let y, m, day;
+          parts.forEach(p => {
+            if (p.type === 'year') y = parseInt(p.value, 10);
+            if (p.type === 'month') m = parseInt(p.value, 10);
+            if (p.type === 'day') day = parseInt(p.value, 10);
+          });
+          return new Date(y, m - 1, day);
+        };
+
+        const todayMidnight = getLocalDateParts(now);
+        const eventMidnight = new Date(2026, 10, 10); // Nov 10, 2026
+        const diffMs = eventMidnight - todayMidnight;
+        const diffDays = Math.round(diffMs / (1000 * 60 * 60 * 24));
+
+        if (diffDays > 0) {
+          dDayElement.textContent = `D-${diffDays}`;
+        } else if (diffDays === 0) {
+          dDayElement.textContent = 'D-DAY';
+        } else {
+          dDayElement.textContent = `D+${Math.abs(diffDays)}`;
+        }
       }
+
+      // Live Session timeline state (active only on event day, or for live demo simulation)
+      const optionsDate = {
+        timeZone: 'America/Chicago',
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric'
+      };
+      const nowDateStr = new Intl.DateTimeFormat('en-US', optionsDate).format(now);
+      const isEventDay = (nowDateStr === '11/10/2026');
 
       const options24 = {
         timeZone: 'America/Chicago',
@@ -997,29 +1056,34 @@
 
         const startMin = parseTimeToMinutes(startStr);
         const endMin = parseTimeToMinutes(endStr);
-
         const livePill = item.querySelector('.live-pill');
 
-        if (currentTotalMinutes >= startMin && currentTotalMinutes < endMin) {
-          // Active session
-          item.classList.add('is-active');
-          item.classList.remove('is-past');
-          if (livePill) {
-            livePill.classList.remove('hidden');
-            livePill.classList.add('inline-flex');
-          }
-        } else if (currentTotalMinutes >= endMin) {
-          // Past session
-          item.classList.remove('is-active');
-          item.classList.add('is-past');
-          if (livePill) {
-            livePill.classList.add('hidden');
-            livePill.classList.remove('inline-flex');
+        if (isEventDay) {
+          if (currentTotalMinutes >= startMin && currentTotalMinutes < endMin) {
+            item.classList.add('is-active');
+            item.classList.remove('is-past');
+            if (livePill) {
+              livePill.classList.remove('hidden');
+              livePill.classList.add('inline-flex');
+            }
+          } else if (currentTotalMinutes >= endMin) {
+            item.classList.remove('is-active');
+            item.classList.add('is-past');
+            if (livePill) {
+              livePill.classList.add('hidden');
+              livePill.classList.remove('inline-flex');
+            }
+          } else {
+            item.classList.remove('is-active');
+            item.classList.remove('is-past');
+            if (livePill) {
+              livePill.classList.add('hidden');
+              livePill.classList.remove('inline-flex');
+            }
           }
         } else {
-          // Upcoming session
-          item.classList.remove('is-active');
-          item.classList.remove('is-past');
+          // If not event day yet, show upcoming state without dimming
+          item.classList.remove('is-active', 'is-past');
           if (livePill) {
             livePill.classList.add('hidden');
             livePill.classList.remove('inline-flex');
@@ -1054,6 +1118,100 @@
     window.addEventListener('resize', alignTimelineTrackLine);
     setTimeout(alignTimelineTrackLine, 100);
     setTimeout(alignTimelineTrackLine, 600); // after fade-in animation finishes
+
+    // --- Silicon Valley Standard: First-Visit Confetti Blast & Sparkle Micro-Interaction ---
+    function triggerCelebrationConfetti() {
+      const STORAGE_KEY = 'visited_lgetn_10m_celebration';
+      if (sessionStorage.getItem(STORAGE_KEY)) {
+        return; // Execute only on initial first visit of session
+      }
+      sessionStorage.setItem(STORAGE_KEY, 'true');
+
+      // Sparkle Particle Generation around Hero Title
+      function triggerHeroSparkles() {
+        const titleContainer = document.getElementById('heroTitleContainer');
+        if (!titleContainer) return;
+
+        const sparkleCoords = [
+          { top: '-10px', left: '-12px', size: 18, color: '#D4AF37', delay: '0ms' },
+          { top: '-14px', right: '-8px', size: 20, color: '#FFFFFF', delay: '120ms' },
+          { bottom: '-6px', left: '15%', size: 16, color: '#ED1C24', delay: '200ms' },
+          { top: '40%', right: '-16px', size: 16, color: '#D4AF37', delay: '280ms' }
+        ];
+
+        sparkleCoords.forEach(item => {
+          const sparkle = document.createElement('div');
+          sparkle.className = 'sparkle-particle';
+          sparkle.style.top = item.top || 'auto';
+          sparkle.style.bottom = item.bottom || 'auto';
+          sparkle.style.left = item.left || 'auto';
+          sparkle.style.right = item.right || 'auto';
+          sparkle.style.width = `${item.size}px`;
+          sparkle.style.height = `${item.size}px`;
+          sparkle.style.animationDelay = item.delay;
+
+          sparkle.innerHTML = `
+            <svg viewBox="0 0 24 24" fill="${item.color}" class="w-full h-full drop-shadow-sm">
+              <path d="M12 0L14.4 8.6L23 11L14.4 13.4L12 22L9.6 13.4L1 11L9.6 8.6L12 0Z"/>
+            </svg>
+          `;
+
+          titleContainer.appendChild(sparkle);
+          setTimeout(() => {
+            if (sparkle.parentNode) sparkle.parentNode.removeChild(sparkle);
+          }, 1400);
+        });
+      }
+
+      // Delay between 800ms ~ 1000ms for natural cognitive anticipation
+      setTimeout(() => {
+        if (typeof confetti !== 'function') return;
+
+        // Custom palette: LG Active Red, Deep Crimson, Champagne Gold, Metallic Silver, Pure White
+        const celebrationColors = ['#ED1C24', '#A50034', '#D4AF37', '#E2E8F0', '#FFFFFF'];
+
+        // Left Cannon
+        confetti({
+          particleCount: 65,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0.08, y: 0.88 },
+          colors: celebrationColors,
+          gravity: 0.85,
+          friction: 0.94,
+          drift: 0.05,
+          scalar: 0.95,
+          ticks: 240,
+          disableForReducedMotion: true
+        });
+
+        // Right Cannon
+        confetti({
+          particleCount: 65,
+          angle: 120,
+          spread: 55,
+          origin: { x: 0.92, y: 0.88 },
+          colors: celebrationColors,
+          gravity: 0.85,
+          friction: 0.94,
+          drift: -0.05,
+          scalar: 0.95,
+          ticks: 240,
+          disableForReducedMotion: true
+        });
+
+        // Peak Moment (~300ms after cannons launch, approx 1.2s post load): Sparkle micro-interaction
+        setTimeout(triggerHeroSparkles, 300);
+
+      }, 900);
+    }
+
+    // Launch celebration check
+    if (document.readyState === 'complete') {
+      triggerCelebrationConfetti();
+    } else {
+      window.addEventListener('load', triggerCelebrationConfetti);
+    }
   </script>
 
 </body>

@@ -1221,7 +1221,12 @@
       setTimeout(triggerHeroSparkles, 250);
 
       let animId;
-      function render() {
+      let lastTime = performance.now();
+
+      function render(now) {
+        const delta = Math.min((now - lastTime) / 16.67, 2.5); // Normalize by frame time (prevents huge jumps if thread is busy)
+        lastTime = now;
+
         ctx.clearRect(0, 0, width, height);
 
         let activeCount = 0;
@@ -1230,13 +1235,13 @@
           if (p.opacity <= 0.02) continue;
           activeCount++;
 
-          p.vx *= p.friction;
-          p.vy *= p.friction;
-          p.vy += p.gravity;
-          p.x += p.vx;
-          p.y += p.vy;
-          p.rotation += p.vRot;
-          p.opacity -= 0.007;
+          p.vx *= Math.pow(p.friction, delta);
+          p.vy *= Math.pow(p.friction, delta);
+          p.vy += p.gravity * delta;
+          p.x += p.vx * delta;
+          p.y += p.vy * delta;
+          p.rotation += p.vRot * delta;
+          p.opacity -= 0.007 * delta;
 
           ctx.save();
           ctx.translate(p.x, p.y);
@@ -1255,11 +1260,20 @@
         }
       }
 
-      render();
+      requestAnimationFrame((t) => {
+        lastTime = t;
+        render(t);
+      });
     }
 
-    // Launch celebration after brief stabilization (200ms)
-    setTimeout(triggerCelebrationConfetti, 200);
+    // Launch celebration once page and fonts are fully stabilized (prevents thread collision with initial render)
+    window.addEventListener('load', () => {
+      setTimeout(triggerCelebrationConfetti, 450);
+    });
+    // Fallback if window load already fired
+    if (document.readyState === 'complete') {
+      setTimeout(triggerCelebrationConfetti, 450);
+    }
 
     // Interactive Easter Egg: Tap "10 MILLION" title to trigger celebration anytime!
     const heroTitle = document.getElementById('heroTitleContainer');

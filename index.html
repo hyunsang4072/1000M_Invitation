@@ -13,9 +13,6 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
     rel="stylesheet">
 
-  <!-- Canvas Confetti CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
-
   <!-- Tailwind CSS CDN with darkMode: 'class' -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -203,13 +200,12 @@
       }
     }
 
-    /* Keyframe Animations */
+    /* Keyframe Animations: Mobile-safe with immediate visibility fallback */
     @keyframes fadeInUp {
       from {
         opacity: 0;
-        transform: translateY(16px);
+        transform: translateY(12px);
       }
-
       to {
         opacity: 1;
         transform: translateY(0);
@@ -217,7 +213,7 @@
     }
 
     .animate-fade-in-up {
-      animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
     /* Celebration Sparkle Micro-Interactions */
@@ -244,8 +240,8 @@
     }
 
     .timeline-item {
-      opacity: 0;
-      animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      opacity: 1; /* Guaranteed visible even if animation fails or lags on mobile */
+      animation: fadeInUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
 
     /* Precision Glass Cards */
@@ -1121,11 +1117,11 @@
     setTimeout(alignTimelineTrackLine, 100);
     setTimeout(alignTimelineTrackLine, 600); // after fade-in animation finishes
 
-    // --- Silicon Valley Standard: First-Visit Confetti Blast & Sparkle Micro-Interaction ---
+    // --- Zero-Dependency Native Canvas Confetti Engine (Mobile 60FPS Hardware Accelerated) ---
     function triggerCelebrationConfetti() {
       const STORAGE_KEY = 'visited_lgetn_10m_celebration';
       if (sessionStorage.getItem(STORAGE_KEY)) {
-        return; // Execute only on initial first visit of session
+        return;
       }
       sessionStorage.setItem(STORAGE_KEY, 'true');
 
@@ -1165,82 +1161,105 @@
         });
       }
 
-      // Launch blast promptly as page appears (150ms) so user actively witnesses the shooting
-      function shootCannonBlast() {
-        if (typeof confetti !== 'function') return;
+      // Native Canvas Implementation: Lightweight, No External CDN Dependency, Zero-Lag
+      const canvas = document.createElement('canvas');
+      canvas.style.position = 'fixed';
+      canvas.style.inset = '0';
+      canvas.style.width = '100vw';
+      canvas.style.height = '100vh';
+      canvas.style.pointerEvents = 'none';
+      canvas.style.zIndex = '9999';
+      document.body.appendChild(canvas);
 
-        // Custom palette: LG Active Red, Deep Crimson, Champagne Gold, Metallic Silver, Pure White
-        const celebrationColors = ['#ED1C24', '#A50034', '#D4AF37', '#E2E8F0', '#FFFFFF'];
+      const ctx = canvas.getContext('2d', { alpha: true });
+      let width = (canvas.width = window.innerWidth);
+      let height = (canvas.height = window.innerHeight);
 
-        // Initial Direct Shoot: Left & Right Cannons (High velocity, tight spread towards hero title)
-        confetti({
-          particleCount: 50,
-          angle: 60,
-          spread: 60,
-          origin: { x: 0.05, y: 0.85 },
-          colors: celebrationColors,
-          startVelocity: 45,
-          gravity: 0.9,
-          friction: 0.92,
-          scalar: 1,
-          ticks: 200
+      const colors = ['#ED1C24', '#A50034', '#D4AF37', '#E2E8F0', '#FFFFFF'];
+      const particles = [];
+      const particlesPerSide = 40; // Exactly 40 particles Left, 40 particles Right = 80 total
+
+      // Perfect Symmetrical Double Cannon Launch
+      // Left Cannon: Shoots UP & RIGHT (around 50° ~ 75°)
+      for (let i = 0; i < particlesPerSide; i++) {
+        const rad = (Math.PI / 180) * (45 + Math.random() * 30);
+        const speed = 15 + Math.random() * 11;
+        particles.push({
+          x: width * 0.08,
+          y: height * 0.85,
+          vx: Math.cos(rad) * speed,       // Positive vx -> moves RIGHT towards center
+          vy: -Math.sin(rad) * speed,      // Negative vy -> moves UP
+          size: 5 + Math.random() * 5,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          rotation: Math.random() * Math.PI * 2,
+          vRot: (Math.random() - 0.5) * 0.25,
+          opacity: 1,
+          gravity: 0.38 + Math.random() * 0.1,
+          friction: 0.965
         });
-
-        confetti({
-          particleCount: 50,
-          angle: 120,
-          spread: 60,
-          origin: { x: 0.95, y: 0.85 },
-          colors: celebrationColors,
-          startVelocity: 45,
-          gravity: 0.9,
-          friction: 0.92,
-          scalar: 1,
-          ticks: 200
-        });
-
-        // Cascading secondary burst for dramatic continuous explosion (+250ms)
-        setTimeout(() => {
-          confetti({
-            particleCount: 35,
-            angle: 70,
-            spread: 50,
-            origin: { x: 0.15, y: 0.75 },
-            colors: celebrationColors,
-            startVelocity: 35,
-            gravity: 0.85,
-            friction: 0.93,
-            scalar: 0.9,
-            ticks: 220
-          });
-          confetti({
-            particleCount: 35,
-            angle: 110,
-            spread: 50,
-            origin: { x: 0.85, y: 0.75 },
-            colors: celebrationColors,
-            startVelocity: 35,
-            gravity: 0.85,
-            friction: 0.93,
-            scalar: 0.9,
-            ticks: 220
-          });
-        }, 220);
-
-        // Sparkle micro-interaction around hero title
-        setTimeout(triggerHeroSparkles, 280);
       }
 
-      // Trigger right as page loads (150ms)
-      setTimeout(shootCannonBlast, 150);
+      // Right Cannon: Shoots UP & LEFT (around 105° ~ 135°)
+      for (let i = 0; i < particlesPerSide; i++) {
+        const rad = (Math.PI / 180) * (45 + Math.random() * 30);
+        const speed = 15 + Math.random() * 11;
+        particles.push({
+          x: width * 0.92,
+          y: height * 0.85,
+          vx: -Math.cos(rad) * speed,      // Negative vx -> moves LEFT towards center
+          vy: -Math.sin(rad) * speed,      // Negative vy -> moves UP
+          size: 5 + Math.random() * 5,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          rotation: Math.random() * Math.PI * 2,
+          vRot: (Math.random() - 0.5) * 0.25,
+          opacity: 1,
+          gravity: 0.38 + Math.random() * 0.1,
+          friction: 0.965
+        });
+      }
+
+      setTimeout(triggerHeroSparkles, 250);
+
+      let animId;
+      function render() {
+        ctx.clearRect(0, 0, width, height);
+
+        let activeCount = 0;
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          if (p.opacity <= 0.02) continue;
+          activeCount++;
+
+          p.vx *= p.friction;
+          p.vy *= p.friction;
+          p.vy += p.gravity;
+          p.x += p.vx;
+          p.y += p.vy;
+          p.rotation += p.vRot;
+          p.opacity -= 0.007;
+
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rotation);
+          ctx.globalAlpha = Math.max(0, p.opacity);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+          ctx.restore();
+        }
+
+        if (activeCount > 0) {
+          animId = requestAnimationFrame(render);
+        } else {
+          cancelAnimationFrame(animId);
+          if (canvas.parentNode) canvas.parentNode.removeChild(canvas);
+        }
+      }
+
+      render();
     }
 
-    // Launch celebration check on DOM ready or immediate
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', triggerCelebrationConfetti);
-    } else {
-      triggerCelebrationConfetti();
-    }
+    // Launch celebration after brief stabilization (200ms)
+    setTimeout(triggerCelebrationConfetti, 200);
 
     // Interactive Easter Egg: Tap "10 MILLION" title to trigger celebration anytime!
     const heroTitle = document.getElementById('heroTitleContainer');

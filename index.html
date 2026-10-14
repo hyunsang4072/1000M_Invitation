@@ -467,9 +467,10 @@
     }
 
     .timeline-item {
-      opacity: 1;
-      /* Guaranteed visible even if animation fails or lags on mobile */
-      animation: fadeInUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+      opacity: 1 !important;
+      visibility: visible !important;
+      content-visibility: visible;
+      /* Guaranteed instant rendering on mobile without any blank screen or scroll delay */
     }
 
     /* Precision Glass Cards */
@@ -685,7 +686,7 @@
     </section>
 
     <!-- SECTION TITLE: PROGRAM TIMELINE -->
-    <div class="flex items-center justify-between px-1 mb-3 pt-2 animate-fade-in-up" style="animation-delay: 0.15s;">
+    <div class="flex items-center justify-between px-1 mb-3 pt-2">
       <div class="flex items-center gap-2">
         <span class="text-xs font-semibold tracking-wider text-zinc-400 dark:text-zinc-500 uppercase">Schedule</span>
         <span class="text-[10px] text-zinc-400">&bull;</span>
@@ -705,8 +706,7 @@
       <div class="space-y-3 relative">
 
         <!-- Item 1: Lunch (12:20 - 12:50) -->
-        <div class="timeline-item flex items-center gap-2.5" data-start="12:20" data-end="12:50"
-          style="animation-delay: 0.18s;">
+        <div class="timeline-item flex items-center gap-2.5" data-start="12:20" data-end="12:50">
           <div class="timeline-node-col">
             <div
               class="indicator-dot w-5 h-5 rounded-full bg-white dark:bg-[#09090b] border-[1.5px] border-zinc-300 dark:border-zinc-700 flex items-center justify-center transition-all duration-300">
@@ -743,8 +743,7 @@
         </div>
 
         <!-- Item 2: Opening Video (12:50 - 13:00) -->
-        <div class="timeline-item flex items-center gap-2.5" data-start="12:50" data-end="13:00"
-          style="animation-delay: 0.22s;">
+        <div class="timeline-item flex items-center gap-2.5" data-start="12:50" data-end="13:00">
           <div class="timeline-node-col">
             <div
               class="indicator-dot w-5 h-5 rounded-full bg-white dark:bg-[#09090b] border-[1.5px] border-zinc-300 dark:border-zinc-700 flex items-center justify-center transition-all duration-300">
@@ -781,8 +780,7 @@
         </div>
 
         <!-- Item 3: TN Site History (13:00 - 13:05) -->
-        <div class="timeline-item flex items-center gap-2.5" data-start="13:00" data-end="13:05"
-          style="animation-delay: 0.26s;">
+        <div class="timeline-item flex items-center gap-2.5" data-start="13:00" data-end="13:05">
           <div class="timeline-node-col">
             <div
               class="indicator-dot w-5 h-5 rounded-full bg-white dark:bg-[#09090b] border-[1.5px] border-zinc-300 dark:border-zinc-700 flex items-center justify-center transition-all duration-300">
@@ -820,8 +818,7 @@
         </div>
 
         <!-- Item 4: MAIN EVENT - 10 Millionth Unit Reveal (13:05 - 13:10) -->
-        <div class="timeline-item flex items-center gap-2.5" data-start="13:05" data-end="13:10"
-          style="animation-delay: 0.3s;">
+        <div class="timeline-item flex items-center gap-2.5" data-start="13:05" data-end="13:10">
           <div class="timeline-node-col">
             <div
               class="indicator-dot w-5 h-5 rounded-full bg-lgRed border-2 border-white dark:border-[#09090b] flex items-center justify-center shadow-md transition-all duration-300">
@@ -872,8 +869,7 @@
         </div>
 
         <!-- Item 5: Congratulatory Videos (13:10 - 13:25) -->
-        <div class="timeline-item flex items-center gap-2.5" data-start="13:10" data-end="13:25"
-          style="animation-delay: 0.34s;">
+        <div class="timeline-item flex items-center gap-2.5" data-start="13:10" data-end="13:25">
           <div class="timeline-node-col">
             <div
               class="indicator-dot w-5 h-5 rounded-full bg-white dark:bg-[#09090b] border-[1.5px] border-zinc-300 dark:border-zinc-700 flex items-center justify-center transition-all duration-300">
@@ -912,8 +908,7 @@
         </div>
 
         <!-- Item 6: Signing Ceremony (13:25 - 13:35) -->
-        <div class="timeline-item flex items-center gap-2.5" data-start="13:25" data-end="13:35"
-          style="animation-delay: 0.38s;">
+        <div class="timeline-item flex items-center gap-2.5" data-start="13:25" data-end="13:35">
           <div class="timeline-node-col">
             <div
               class="indicator-dot w-5 h-5 rounded-full bg-white dark:bg-[#09090b] border-[1.5px] border-zinc-300 dark:border-zinc-700 flex items-center justify-center transition-all duration-300">
@@ -951,8 +946,7 @@
         </div>
 
         <!-- Item 7: Cake-Cutting (13:35 - 13:45) -->
-        <div class="timeline-item flex items-center gap-2.5" data-start="13:35" data-end="13:45"
-          style="animation-delay: 0.42s;">
+        <div class="timeline-item flex items-center gap-2.5" data-start="13:35" data-end="13:45">
           <div class="timeline-node-col">
             <div
               class="indicator-dot w-5 h-5 rounded-full bg-white dark:bg-[#09090b] border-[1.5px] border-zinc-300 dark:border-zinc-700 flex items-center justify-center transition-all duration-300">
@@ -990,8 +984,7 @@
         </div>
 
         <!-- Item 8: Awards (13:45 - 13:55) -->
-        <div class="timeline-item flex items-center gap-2.5" data-start="13:45" data-end="13:55"
-          style="animation-delay: 0.46s;">
+        <div class="timeline-item flex items-center gap-2.5" data-start="13:45" data-end="13:55">
           <div class="timeline-node-col">
             <div
               class="indicator-dot w-5 h-5 rounded-full bg-white dark:bg-[#09090b] border-[1.5px] border-zinc-300 dark:border-zinc-700 flex items-center justify-center transition-all duration-300">
@@ -1033,8 +1026,7 @@
         </div>
 
         <!-- Item 9: Photo Session (13:55 - 14:05) -->
-        <div class="timeline-item flex items-center gap-2.5" data-start="13:55" data-end="14:05"
-          style="animation-delay: 0.50s;">
+        <div class="timeline-item flex items-center gap-2.5" data-start="13:55" data-end="14:05">
           <div class="timeline-node-col">
             <div
               class="indicator-dot w-5 h-5 rounded-full bg-white dark:bg-[#09090b] border-[1.5px] border-zinc-300 dark:border-zinc-700 flex items-center justify-center transition-all duration-300">
@@ -1073,8 +1065,7 @@
         </div>
 
         <!-- Item 10: Announcements (14:05 - 14:10) -->
-        <div class="timeline-item flex items-center gap-2.5" data-start="14:05" data-end="14:10"
-          style="animation-delay: 0.54s;">
+        <div class="timeline-item flex items-center gap-2.5" data-start="14:05" data-end="14:10">
           <div class="timeline-node-col">
             <div
               class="indicator-dot w-5 h-5 rounded-full bg-white dark:bg-[#09090b] border-[1.5px] border-zinc-300 dark:border-zinc-700 flex items-center justify-center transition-all duration-300">
@@ -1111,8 +1102,7 @@
         </div>
 
         <!-- Item 11: Teardown (14:10 - 15:10) -->
-        <div class="timeline-item flex items-center gap-2.5" data-start="14:10" data-end="15:10"
-          style="animation-delay: 0.58s;">
+        <div class="timeline-item flex items-center gap-2.5" data-start="14:10" data-end="15:10">
           <div class="timeline-node-col">
             <div
               class="indicator-dot w-5 h-5 rounded-full bg-white dark:bg-[#09090b] border-[1.5px] border-zinc-300 dark:border-zinc-700 flex items-center justify-center transition-all duration-300">
@@ -1396,7 +1386,7 @@
         });
       }
 
-      // Native Canvas Implementation: Lightweight, No External CDN Dependency, Zero-Lag
+      // Native Canvas Implementation: Lightweight, Hardware Accelerated, Zero-Lag
       const canvas = document.createElement('canvas');
       canvas.style.position = 'fixed';
       canvas.style.inset = '0';
@@ -1404,6 +1394,7 @@
       canvas.style.height = '100vh';
       canvas.style.pointerEvents = 'none';
       canvas.style.zIndex = '9999';
+      canvas.style.willChange = 'transform';
       document.body.appendChild(canvas);
 
       const ctx = canvas.getContext('2d', { alpha: true });
@@ -1412,11 +1403,14 @@
 
       const colors = ['#ED1C24', '#A50034', '#D4AF37', '#E2E8F0', '#FFFFFF'];
       const particles = [];
-      const particlesPerSide = 40; // Exactly 40 particles Left, 40 particles Right = 80 total
+      // Mobile adaptive particle count: 55 on mobile (< 768px), 120 on tablet/desktop
+      const totalParticles = window.innerWidth < 768 ? 55 : 120;
+      const leftCount = Math.floor(totalParticles / 2);
+      const rightCount = totalParticles - leftCount;
 
       // Perfect Symmetrical Double Cannon Launch
       // Left Cannon: Shoots UP & RIGHT (around 50° ~ 75°)
-      for (let i = 0; i < particlesPerSide; i++) {
+      for (let i = 0; i < leftCount; i++) {
         const rad = (Math.PI / 180) * (45 + Math.random() * 30);
         const speed = 15 + Math.random() * 11;
         particles.push({
@@ -1435,7 +1429,7 @@
       }
 
       // Right Cannon: Shoots UP & LEFT (around 105° ~ 135°)
-      for (let i = 0; i < particlesPerSide; i++) {
+      for (let i = 0; i < rightCount; i++) {
         const rad = (Math.PI / 180) * (45 + Math.random() * 30);
         const speed = 15 + Math.random() * 11;
         particles.push({
@@ -1457,9 +1451,12 @@
 
       let animId;
       let lastTime = performance.now();
+      let ticks = 0;
+      const MAX_TICKS = 200; // Fast lifecycle (200 ticks) for instant memory return
 
       function render(now) {
-        const delta = Math.min((now - lastTime) / 16.67, 2.5); // Normalize by frame time (prevents huge jumps if thread is busy)
+        ticks++;
+        const delta = Math.min((now - lastTime) / 16.67, 2.5); // Normalize by frame time
         lastTime = now;
 
         ctx.clearRect(0, 0, width, height);
@@ -1476,7 +1473,7 @@
           p.x += p.vx * delta;
           p.y += p.vy * delta;
           p.rotation += p.vRot * delta;
-          p.opacity -= 0.007 * delta;
+          p.opacity -= (ticks > 150 ? 0.015 : 0.007) * delta; // Accelerated graceful fadeout before tick 200
 
           ctx.save();
           ctx.translate(p.x, p.y);
@@ -1487,7 +1484,7 @@
           ctx.restore();
         }
 
-        if (activeCount > 0) {
+        if (activeCount > 0 && ticks < MAX_TICKS) {
           animId = requestAnimationFrame(render);
         } else {
           cancelAnimationFrame(animId);
@@ -1501,13 +1498,20 @@
       });
     }
 
-    // Launch celebration once page and fonts are fully stabilized (prevents thread collision with initial render)
-    window.addEventListener('load', () => {
-      setTimeout(triggerCelebrationConfetti, 450);
-    });
-    // Fallback if window load already fired
+    // Launch celebration only during browser idle state (zero collision with First Paint)
+    function scheduleIdleCelebration() {
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(() => {
+          setTimeout(triggerCelebrationConfetti, 1000);
+        }, { timeout: 2000 });
+      } else {
+        setTimeout(triggerCelebrationConfetti, 1000);
+      }
+    }
+
+    window.addEventListener('load', scheduleIdleCelebration);
     if (document.readyState === 'complete') {
-      setTimeout(triggerCelebrationConfetti, 450);
+      scheduleIdleCelebration();
     }
 
     // =========================================================================

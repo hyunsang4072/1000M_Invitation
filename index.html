@@ -272,7 +272,7 @@
     }
 
     .animate-lg-wink {
-      transform-origin: 35px 34.5px;
+      transform-origin: 36px 36px;
       animation: lgEyeWink 0.42s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
@@ -594,19 +594,19 @@
       <div id="lgBrandBadge"
         class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-black/5 dark:border-white/10 bg-black/[0.03] dark:bg-white/[0.04] backdrop-blur-md transition-all shadow-sm cursor-pointer select-none relative active:scale-95"
         style="touch-action: manipulation; -webkit-touch-callout: none;">
-        <!-- Official LG Brand Vector Symbol (Exact Geometry Matching Reference Image) -->
+        <!-- Official LG Brand Vector Symbol (Exact Geometry Matching Official Brand Guideline 25x25 Grid) -->
         <svg id="lgLogoSvg" class="w-4 h-4 shrink-0 transition-transform" viewBox="0 0 100 100" fill="none"
           xmlns="http://www.w3.org/2000/svg">
-          <!-- Background Disc: Official LG Heritage Red -->
+          <!-- Background Disc: Official LG Heritage Red (Pantone 207C / #A50034) -->
           <circle cx="50" cy="50" r="50" fill="#A50034" />
-          <!-- Outer 'G' Arc: Perfect circular stroke (R=38, center 50,50), starts at top (50, 12), loops round to (88, 50), then horizontal bar to (62.5, 50) -->
-          <path d="M50 12 A38 38 0 1 0 88 50 H62.5" stroke="white" stroke-width="4.8" stroke-linecap="butt"
+          <!-- Outer 'G' Arc: Official Grid (R=38, center 50,50, stroke width X=4), starts at top (50, 12), loops counter-clockwise to (88, 50), then horizontal bar inwards 6X to (64, 50) leaving 3.5X gap -->
+          <path d="M50 12 A38 38 0 1 0 88 50 H64" stroke="white" stroke-width="4" stroke-linecap="butt"
             stroke-linejoin="miter" />
-          <!-- Inner 'L' (Nose & Mouth): Starts lower at Y=30, goes down to Y=67.5, then horizontal to X=62.5 (strictly separated from outer circle) -->
-          <path d="M50 30 V67.5 H62.5" stroke="white" stroke-width="4.8" stroke-linecap="butt"
+          <!-- Inner 'L' (Nose & Mouth): Starts at top of nose (50, 30), vertical stroke 9.5X down to (50, 68), then horizontal mouth stroke 3.5X to (64, 68), perfectly aligning with G bar end -->
+          <path d="M50 30 V68 H64" stroke="white" stroke-width="4" stroke-linecap="butt"
             stroke-linejoin="miter" />
-          <!-- Eye Dot: Proportional circular dot at (35, 34.5) with radius 5.2 -->
-          <circle id="lgEyeDot" cx="35" cy="34.5" r="5.2" fill="white" />
+          <!-- Eye Dot: Exact Grid Center (9X, 9X) = (36, 36) with Diameter 3X (r=6) -->
+          <circle id="lgEyeDot" cx="36" cy="36" r="6" fill="white" />
         </svg>
         <span class="text-[11px] font-semibold tracking-wider text-zinc-900 dark:text-zinc-100 uppercase">
           LG Electronics

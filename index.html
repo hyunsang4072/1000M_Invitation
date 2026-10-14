@@ -206,6 +206,7 @@
         opacity: 0;
         transform: translateY(12px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -223,21 +224,25 @@
         transform: scale(0) rotate(0deg);
         filter: drop-shadow(0 0 2px rgba(212, 175, 55, 0.4));
       }
+
       20% {
         opacity: 1;
         transform: scale(1.25) rotate(60deg);
         filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.9));
       }
+
       50% {
         opacity: 0.75;
         transform: scale(0.95) rotate(120deg);
         filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.6));
       }
+
       75% {
         opacity: 1;
         transform: scale(1.15) rotate(180deg);
         filter: drop-shadow(0 0 7px rgba(212, 175, 55, 0.8));
       }
+
       100% {
         opacity: 0;
         transform: scale(0.2) rotate(240deg);
@@ -252,8 +257,218 @@
       animation: sparklePop 2.2s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
     }
 
+    /* Easter Egg 1: LG Logo Wink & Heart Float */
+    @keyframes lgEyeWink {
+
+      0%,
+      100% {
+        transform: scaleY(1);
+      }
+
+      40%,
+      60% {
+        transform: scaleY(0.12);
+      }
+    }
+
+    .animate-lg-wink {
+      transform-origin: 35px 34.5px;
+      animation: lgEyeWink 0.42s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes logoPop {
+      0% {
+        transform: scale(1);
+      }
+
+      40% {
+        transform: scale(1.14);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .animate-logo-pop {
+      animation: logoPop 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes floatHeartUp {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, 0) scale(0.5);
+      }
+
+      25% {
+        opacity: 1;
+        transform: translate(-50%, -10px) scale(1.15);
+      }
+
+      75% {
+        opacity: 0.9;
+        transform: translate(-50%, -24px) scale(1);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -36px) scale(0.8);
+      }
+    }
+
+    .easter-egg-heart {
+      position: absolute;
+      pointer-events: none;
+      animation: floatHeartUp 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      z-index: 50;
+    }
+
+    /* Easter Egg 2: Jackpot Text Glitch & Glow */
+    @keyframes jackpotGlow {
+
+      0%,
+      100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 0px transparent);
+      }
+
+      25% {
+        transform: scale(1.08) rotate(-1deg);
+        filter: drop-shadow(0 0 16px rgba(237, 28, 36, 0.75)) drop-shadow(0 0 24px rgba(212, 175, 55, 0.6));
+      }
+
+      50% {
+        transform: scale(1.12) rotate(1deg);
+        filter: drop-shadow(0 0 22px rgba(212, 175, 55, 0.9)) drop-shadow(0 0 10px rgba(255, 255, 255, 0.8));
+      }
+
+      75% {
+        transform: scale(1.05) rotate(-0.5deg);
+        filter: drop-shadow(0 0 14px rgba(237, 28, 36, 0.8));
+      }
+    }
+
+    .animate-jackpot {
+      animation: jackpotGlow 0.85s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    /* Easter Egg 3: Washer Spin Cycle Shake (High RPM 1400 Spin Vibration) */
+    @keyframes washerSpinShake {
+      0% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+
+      5% {
+        transform: translate(-3px, 1.5px) rotate(-0.4deg);
+      }
+
+      10% {
+        transform: translate(3.5px, -2px) rotate(0.4deg);
+      }
+
+      15% {
+        transform: translate(-4px, -1px) rotate(-0.5deg);
+      }
+
+      20% {
+        transform: translate(4px, 2px) rotate(0.5deg);
+      }
+
+      25% {
+        transform: translate(-3.5px, 2px) rotate(-0.35deg);
+      }
+
+      30% {
+        transform: translate(3px, -2.5px) rotate(0.4deg);
+      }
+
+      35% {
+        transform: translate(-4px, 1.5px) rotate(-0.45deg);
+      }
+
+      40% {
+        transform: translate(4.5px, -1px) rotate(0.5deg);
+      }
+
+      45% {
+        transform: translate(-3px, -2px) rotate(-0.35deg);
+      }
+
+      50% {
+        transform: translate(3.5px, 2px) rotate(0.4deg);
+      }
+
+      55% {
+        transform: translate(-4.5px, 1px) rotate(-0.5deg);
+      }
+
+      60% {
+        transform: translate(4px, -2px) rotate(0.45deg);
+      }
+
+      65% {
+        transform: translate(-3px, 2.5px) rotate(-0.35deg);
+      }
+
+      70% {
+        transform: translate(3.5px, -1.5px) rotate(0.4deg);
+      }
+
+      75% {
+        transform: translate(-2.5px, 1.5px) rotate(-0.25deg);
+      }
+
+      80% {
+        transform: translate(2.5px, -1px) rotate(0.25deg);
+      }
+
+      85% {
+        transform: translate(-1.5px, 1px) rotate(-0.15deg);
+      }
+
+      90% {
+        transform: translate(1.5px, -0.5px) rotate(0.1deg);
+      }
+
+      95% {
+        transform: translate(-0.5px, 0.5px) rotate(-0.05deg);
+      }
+
+      100% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+    }
+
+    .animate-spin-shake {
+      animation: washerSpinShake 1.25s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+      transform-origin: center center;
+      will-change: transform;
+    }
+
+    /* Modern Glassmorphic Toast Notification (Responsive Mobile Clamped) */
+    .easter-toast {
+      position: fixed;
+      bottom: max(20px, env(safe-area-inset-bottom, 20px));
+      left: 50%;
+      transform: translate(-50%, 24px) scale(0.92);
+      opacity: 0;
+      z-index: 99999;
+      pointer-events: none;
+      width: max-content;
+      max-width: min(calc(100vw - 32px), 380px);
+      box-sizing: border-box;
+      transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform, opacity;
+    }
+
+    .easter-toast.show {
+      transform: translate(-50%, 0) scale(1);
+      opacity: 1;
+    }
+
     .timeline-item {
-      opacity: 1; /* Guaranteed visible even if animation fails or lags on mobile */
+      opacity: 1;
+      /* Guaranteed visible even if animation fails or lags on mobile */
       animation: fadeInUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
 
@@ -376,22 +591,22 @@
     <!-- NAVIGATION / STATUS TOPBAR -->
     <header class="flex items-center justify-between pt-3 pb-6 px-1">
       <!-- Minimal High-Precision Glass Pill Brand Badge -->
-      <div
-        class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-black/5 dark:border-white/10 bg-black/[0.03] dark:bg-white/[0.04] backdrop-blur-md transition-all shadow-sm">
+      <div id="lgBrandBadge"
+        class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-black/5 dark:border-white/10 bg-black/[0.03] dark:bg-white/[0.04] backdrop-blur-md transition-all shadow-sm cursor-pointer select-none relative active:scale-95"
+        style="touch-action: manipulation; -webkit-touch-callout: none;">
         <!-- Official LG Brand Vector Symbol (Exact Geometry Matching Reference Image) -->
-        <svg class="w-4 h-4 shrink-0" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg id="lgLogoSvg" class="w-4 h-4 shrink-0 transition-transform" viewBox="0 0 100 100" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
           <!-- Background Disc: Official LG Heritage Red -->
           <circle cx="50" cy="50" r="50" fill="#A50034" />
           <!-- Outer 'G' Arc: Perfect circular stroke (R=38, center 50,50), starts at top (50, 12), loops round to (88, 50), then horizontal bar to (62.5, 50) -->
-          <path
-            d="M50 12 A38 38 0 1 0 88 50 H62.5"
-            stroke="white" stroke-width="4.8" stroke-linecap="butt" stroke-linejoin="miter" />
+          <path d="M50 12 A38 38 0 1 0 88 50 H62.5" stroke="white" stroke-width="4.8" stroke-linecap="butt"
+            stroke-linejoin="miter" />
           <!-- Inner 'L' (Nose & Mouth): Starts lower at Y=30, goes down to Y=67.5, then horizontal to X=62.5 (strictly separated from outer circle) -->
-          <path
-            d="M50 30 V67.5 H62.5"
-            stroke="white" stroke-width="4.8" stroke-linecap="butt" stroke-linejoin="miter" />
+          <path d="M50 30 V67.5 H62.5" stroke="white" stroke-width="4.8" stroke-linecap="butt"
+            stroke-linejoin="miter" />
           <!-- Eye Dot: Proportional circular dot at (35, 34.5) with radius 5.2 -->
-          <circle cx="35" cy="34.5" r="5.2" fill="white" />
+          <circle id="lgEyeDot" cx="35" cy="34.5" r="5.2" fill="white" />
         </svg>
         <span class="text-[11px] font-semibold tracking-wider text-zinc-900 dark:text-zinc-100 uppercase">
           LG Electronics
@@ -438,12 +653,15 @@
       </div>
 
       <!-- Main Scale Title -->
-      <h1 id="heroTitleContainer" class="tracking-tight leading-none mb-3 relative inline-block">
-        <span
-          class="block text-4xl sm:text-[42px] font-extrabold tracking-[-0.04em] bg-clip-text text-transparent bg-gradient-to-b from-zinc-900 via-zinc-800 to-zinc-600 dark:from-white dark:via-zinc-100 dark:to-zinc-400">
+      <h1 id="heroTitleContainer"
+        class="tracking-tight leading-none mb-3 relative inline-block cursor-pointer select-none active:scale-[0.99] transition-transform"
+        style="touch-action: manipulation; -webkit-touch-callout: none;">
+        <span id="heroMillionText"
+          class="block text-4xl sm:text-[42px] font-extrabold tracking-[-0.04em] bg-clip-text text-transparent bg-gradient-to-b from-zinc-900 via-zinc-800 to-zinc-600 dark:from-white dark:via-zinc-100 dark:to-zinc-400 select-none">
           10 MILLION
         </span>
-        <span class="block text-lg font-light tracking-[0.22em] text-zinc-500 dark:text-zinc-400 uppercase mt-1">
+        <span
+          class="block text-lg font-light tracking-[0.22em] text-zinc-500 dark:text-zinc-400 uppercase mt-1 select-none">
           PRODUCTION CEREMONY
         </span>
       </h1>
@@ -451,7 +669,10 @@
       <!-- Slogan -->
       <p
         class="text-xs font-normal text-zinc-500 dark:text-zinc-400 tracking-tight max-w-[300px] mx-auto mt-2 leading-relaxed">
-        <span>A New Milestone in Laundry Innovation</span><br>
+        <span id="laundryInnovationText"
+          class="cursor-pointer select-none transition-colors active:opacity-75 inline-block py-0.5"
+          style="touch-action: manipulation; -webkit-touch-callout: none;">A New Milestone in Laundry
+          Innovation</span><br>
         <span class="text-zinc-400 dark:text-zinc-500 font-medium">Clarksville, Tennessee</span>
       </p>
 
@@ -583,7 +804,8 @@
               </div>
             </div>
             <h3 class="text-sm font-semibold text-zinc-900 dark:text-white tracking-tight">Clarksville Site History</h3>
-            <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 leading-normal">Milestone journey of LG Electronics, Clarksville, TN</p>
+            <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 leading-normal">Milestone journey of LG
+              Electronics, Clarksville, TN</p>
             <div
               class="mt-2.5 pt-2 border-t border-zinc-100 dark:border-zinc-800/80 flex items-center gap-1.5 text-[11px] text-zinc-400 dark:text-zinc-500 font-medium">
               <svg class="w-3 h-3 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1131,9 +1353,9 @@
     setTimeout(alignTimelineTrackLine, 600); // after fade-in animation finishes
 
     // --- Zero-Dependency Native Canvas Confetti Engine (Mobile 60FPS Hardware Accelerated) ---
-    function triggerCelebrationConfetti() {
+    function triggerCelebrationConfetti(ignoreSession = false) {
       const STORAGE_KEY = 'visited_lgetn_10m_celebration';
-      if (sessionStorage.getItem(STORAGE_KEY)) {
+      if (!ignoreSession && sessionStorage.getItem(STORAGE_KEY)) {
         return;
       }
       sessionStorage.setItem(STORAGE_KEY, 'true');
@@ -1288,13 +1510,227 @@
       setTimeout(triggerCelebrationConfetti, 450);
     }
 
-    // Interactive Easter Egg: Tap "10 MILLION" title to trigger celebration anytime!
+    // =========================================================================
+    // CREATIVE EASTER EGGS SYSTEM (Fully Isolated, Zero UI Clutter, High Delight)
+    // =========================================================================
+
+    // --- Shared High-End Glassmorphism Toast Notification ---
+    let toastTimeout = null;
+    function showEasterToast(message, icon = '🎉', duration = 3000) {
+      let toast = document.getElementById('easterEggToast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'easterEggToast';
+        toast.className = 'easter-toast';
+        document.body.appendChild(toast);
+      }
+
+      toast.innerHTML = `
+        <div class="flex items-center gap-2.5 px-4 py-2.5 rounded-2xl sm:rounded-full bg-zinc-950/90 dark:bg-zinc-900/95 text-white border border-white/15 shadow-[0_12px_36px_rgba(0,0,0,0.45)] backdrop-blur-2xl text-[12px] sm:text-xs font-medium tracking-tight leading-snug w-full text-left sm:text-center justify-center">
+          <span class="text-base shrink-0 select-none">${icon}</span>
+          <span class="break-words leading-tight">${message}</span>
+        </div>
+      `;
+
+      if (toastTimeout) clearTimeout(toastTimeout);
+      requestAnimationFrame(() => {
+        toast.classList.add('show');
+      });
+
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('show');
+      }, duration);
+    }
+
+    // --- Easter Egg 1: LG Logo Wink & Smile (Tap Top-Left LG Brand Badge) ---
+    const lgBadge = document.getElementById('lgBrandBadge');
+    const lgEyeDot = document.getElementById('lgEyeDot');
+    const lgLogoSvg = document.getElementById('lgLogoSvg');
+    let isWinking = false;
+
+    if (lgBadge && lgEyeDot) {
+      lgBadge.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (isWinking) return;
+        isWinking = true;
+
+        // 1. Trigger Mobile Haptic Vibration
+        if (typeof navigator !== 'undefined' && navigator.vibrate) {
+          try {
+            navigator.vibrate([35, 40]);
+          } catch (err) { }
+        }
+
+        // 2. Play SVG Eye Wink & Logo Pop Animation
+        lgEyeDot.classList.remove('animate-lg-wink');
+        lgLogoSvg?.classList.remove('animate-logo-pop');
+        // Force reflow
+        void lgEyeDot.offsetWidth;
+        lgEyeDot.classList.add('animate-lg-wink');
+        lgLogoSvg?.classList.add('animate-logo-pop');
+
+        // 3. Floating Heart / Star Micro-particle above Logo
+        const heart = document.createElement('div');
+        heart.className = 'easter-egg-heart text-base';
+        heart.style.left = '22px';
+        heart.style.top = '-6px';
+        heart.innerHTML = '❤️';
+        lgBadge.appendChild(heart);
+
+        // 4. Subtle Modern Glass Toast
+        showEasterToast("Life's Good at Clarksville! ❤️", '✨', 2400);
+
+        setTimeout(() => {
+          if (heart.parentNode) heart.parentNode.removeChild(heart);
+          lgEyeDot.classList.remove('animate-lg-wink');
+          lgLogoSvg?.classList.remove('animate-logo-pop');
+          isWinking = false;
+        }, 1100);
+      });
+    }
+
+    // --- Easter Egg 2: 10 MILLION Click Jackpot (Tap 10 MILLION 5 Times within 2.5s) ---
     const heroTitle = document.getElementById('heroTitleContainer');
+    const heroMillionText = document.getElementById('heroMillionText');
+    let titleClickCount = 0;
+    let titleClickResetTimer = null;
+    let isRollingJackpot = false;
+
     if (heroTitle) {
       heroTitle.style.cursor = 'pointer';
-      heroTitle.addEventListener('click', () => {
-        sessionStorage.removeItem('visited_lgetn_10m_celebration');
-        triggerCelebrationConfetti();
+      heroTitle.addEventListener('click', (e) => {
+        e.stopPropagation();
+
+        // If jackpot is currently animating, prevent overlaps
+        if (isRollingJackpot) return;
+
+        titleClickCount++;
+
+        // Reset streak window if not reached within 2.5 seconds
+        if (titleClickResetTimer) clearTimeout(titleClickResetTimer);
+        titleClickResetTimer = setTimeout(() => {
+          titleClickCount = 0;
+        }, 2500);
+
+        // Trigger Standard Single-Tap Confetti Replay if clicked 1~4 times
+        if (titleClickCount < 5) {
+          triggerCelebrationConfetti(true);
+          return;
+        }
+
+        // 5x COMBO ACHIEVED -> TRIGGER JACKPOT EASTER EGG!
+        titleClickCount = 0;
+        isRollingJackpot = true;
+        if (titleClickResetTimer) clearTimeout(titleClickResetTimer);
+
+        // Haptic Feedback for Jackpot
+        if (typeof navigator !== 'undefined' && navigator.vibrate) {
+          try {
+            navigator.vibrate([40, 60, 40, 60, 100]);
+          } catch (err) { }
+        }
+
+        // Visual Glitch / Gold Glow Shake on "10 MILLION" Text
+        heroMillionText?.classList.add('animate-jackpot');
+
+        // Rapid Slot Machine / Counter Roller (from 9,999,990 to 10,000,000 in 800ms)
+        const originalText = '10 MILLION';
+        const startNum = 9999990;
+        const targetNum = 10000000;
+        const durationMs = 850;
+        const startTime = performance.now();
+
+        function animateNumber(time) {
+          const elapsed = time - startTime;
+          const progress = Math.min(elapsed / durationMs, 1);
+          // Ease-out cubic for realistic decelerating slot roll
+          const easeProgress = 1 - Math.pow(1 - progress, 3);
+          const currentVal = Math.floor(startNum + (targetNum - startNum) * easeProgress);
+
+          if (heroMillionText) {
+            heroMillionText.textContent = currentVal.toLocaleString();
+          }
+
+          if (progress < 1) {
+            requestAnimationFrame(animateNumber);
+          } else {
+            // Milestone Reached: Grand Finale Launch
+            if (heroMillionText) {
+              heroMillionText.textContent = originalText;
+              heroMillionText.classList.remove('animate-jackpot');
+            }
+
+            // Launch Massive Full Screen Confetti & Sparkles
+            triggerCelebrationConfetti(true);
+
+            // Modern Toast Notification
+            showEasterToast('Historic Milestone Unlocked: Unit #10,000,000 Produced! Life\'s Good.', '🎉', 3400);
+
+            setTimeout(() => {
+              isRollingJackpot = false;
+            }, 500);
+          }
+        }
+
+        requestAnimationFrame(animateNumber);
+      });
+    }
+
+    // --- Easter Egg 3: Washer Spin Cycle Shake (Double Tap or Long Press "Laundry Innovation") ---
+    const laundryText = document.getElementById('laundryInnovationText');
+    const mainContainer = document.querySelector('main');
+    let isSpinning = false;
+    let longPressTimer = null;
+
+    function triggerWasherSpinCycle(e) {
+      if (e) e.stopPropagation();
+      if (isSpinning) return;
+      isSpinning = true;
+
+      // 1. High RPM 1400 Spin Haptic Feedback
+      if (typeof navigator !== 'undefined' && navigator.vibrate) {
+        try {
+          navigator.vibrate([80, 50, 80, 50, 150]);
+        } catch (err) { }
+      }
+
+      // 2. Violent High-RPM Mechanical Vibration on Main App Wrapper
+      const targetElement = mainContainer || document.body;
+      targetElement.classList.add('animate-spin-shake');
+
+      // 3. Complete Cycle & Show Toast
+      setTimeout(() => {
+        targetElement.classList.remove('animate-spin-shake');
+        showEasterToast('Spin Cycle Complete (1,300 RPM)', '🌀', 2800);
+        isSpinning = false;
+      }, 1250);
+    }
+
+    if (laundryText) {
+      // Gesture A: Double Click / Double Tap
+      let lastTap = 0;
+      laundryText.addEventListener('click', (e) => {
+        const currentTime = Date.now();
+        const tapGap = currentTime - lastTap;
+        if (tapGap > 0 && tapGap < 450) {
+          triggerWasherSpinCycle(e);
+        }
+        lastTap = currentTime;
+      });
+
+      // Gesture B: Long Press (Mobile friendly touch duration >= 750ms)
+      laundryText.addEventListener('touchstart', (e) => {
+        longPressTimer = setTimeout(() => {
+          triggerWasherSpinCycle(e);
+        }, 750);
+      }, { passive: true });
+
+      laundryText.addEventListener('touchend', () => {
+        if (longPressTimer) clearTimeout(longPressTimer);
+      });
+
+      laundryText.addEventListener('touchmove', () => {
+        if (longPressTimer) clearTimeout(longPressTimer);
       });
     }
   </script>
